@@ -78,10 +78,10 @@ def pytest_runtest_makereport(item, call):
 
 @pytest.mark.optionalhook
 def pytest_html_results_table_header(cells):
-    cells.insert(2, html.th("Setup Start"))
-    cells.insert(3, html.th("Test Start"))
-    cells.insert(4, html.th("Test Stop"))
-    cells.insert(5, html.th("Teardown Stop"))
+    cells.insert(2, html.th("Setup Start", class_="sortable", col="setup"))
+    cells.insert(3, html.th("Test Start", class_="sortable start initial-sort", col="start"))
+    cells.insert(4, html.th("Test Stop", class_="sortable", col="stop"))
+    cells.insert(5, html.th("Teardown Stop", class_="sortable", col="teardown"))
 
 
 @pytest.mark.optionalhook
