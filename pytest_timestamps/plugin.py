@@ -25,7 +25,10 @@ class Timestamped(TerminalReporter):
         return [format_timestamp(i) for i in times]
 
     def _write_ts_to_terminal(self):
-        start, stop = self._get_timestamps()
+        try:  # clpham:
+            start, stop = self._get_timestamps()
+        except Exception:
+            return
         ts_line = f"[{start} - {stop}]"
         w = self._width_of_current_line
         fill = self._tw.fullwidth - w - 10
@@ -79,7 +82,9 @@ def pytest_runtest_makereport(item, call):
 @pytest.mark.optionalhook
 def pytest_html_results_table_header(cells):
     cells.insert(2, html.th("Setup Start", class_="sortable", col="setup"))
-    cells.insert(3, html.th("Test Start", class_="sortable start initial-sort", col="start"))
+    cells.insert(
+        3, html.th("Test Start", class_="sortable start initial-sort", col="start")
+    )
     cells.insert(4, html.th("Test Stop", class_="sortable", col="stop"))
     cells.insert(5, html.th("Teardown Stop", class_="sortable", col="teardown"))
 
